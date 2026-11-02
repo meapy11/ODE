@@ -1,3 +1,18 @@
+use cxx_qt::casting::Upcast;
+use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QQmlEngine, QUrl};
+use std::pin::Pin;
+
 fn main() {
-    println!("Hello, world!");
+    let mut app = QGuiApplication::new();
+    let mut engine = QQmlApplicationEngine::new();
+
+    if let Some(engine) = engine.as_mut() {
+        engine.load(&QUrl::from(
+            "qrc:/qt/qml/org/ode/shell/qml/Main.qml",
+        ));
+    }
+
+    if let Some(app) = app.as_mut() {
+        app.exec();
+    }
 }
